@@ -6,7 +6,7 @@
 
 ## What is Zirconium?
 
-Zirconium is an opinionated Fedora Bootc image that makes use of Niri and DMS to create a usable out of the box TWM experience.
+Zirconium is an opinionated Fedora Bootc image that makes use of Niri and DMS to create a usable out of the box TWM experience. Beryllium is its Hyprland-based counterpart.
 
 Zirconium is built primarily for container-focused development and day-to-day usage, however gaming is still more than possible. For a fully gaming-focused experience, use Bazzite.
 
@@ -49,6 +49,14 @@ If you also have NVIDIA GPU (GTX 16xx or RTX series), run this command instead:
 sudo bootc switch ghcr.io/zirconium-dev/zirconium-nvidia:latest
 ```
 
+#### Beryllium
+
+For the Hyprland-based version, run:
+
+```bash
+sudo bootc switch ghcr.io/zirconium-dev/beryllium:latest
+```
+
 #### Zirconium Jackrabbit
 
 Once you have some flavour of Fedora Atomic installed, run this command:
@@ -67,9 +75,9 @@ sudo bootc switch ghcr.io/zirconium-dev/zirconium-jackrabbit-nvidia:latest
 
 Currently the Nvidia kernel module and OGC kernel used in Jackrabbit are not being signed so there is no way of using Secure Boot on the Nvidia and Jackrabbit images. ([related issue](https://github.com/zirconium-dev/zirconium/issues/108))
 
-## Can I still customize Niri and/or DMS?
+## Can I still customize Niri, Hyprland, and/or DMS?
 
-Yes! Put your Niri customizations in `~/.config/niri/local.kdl` (for your user) or `/etc/niri/local.kdl` (for system-wide customizations).
+Yes! Put Niri customizations in `~/.config/niri/local.kdl` (for your user) or `/etc/niri/local.kdl` (system-wide). Beryllium deploys Hyprland defaults with `dms setup`; add your own Hyprland configuration alongside those DMS-generated files.
 
 We update our dotfiles in OS updates, which will overwrite the default `~/.config/niri/config.kdl` file. If you edit it, it might get overwritten in a future update. 
 

@@ -1,0 +1,2 @@
+disable iio-niri.service
+enable beryllium-setup.service

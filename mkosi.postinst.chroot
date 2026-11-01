@@ -29,6 +29,9 @@ ln -s fedora-release /usr/lib/system-release
 (
     . /usr/lib/os-release
     IMAGE_NAME="zirconium"
+    if [[ -e /usr/share/beryllium-release ]] ; then
+        IMAGE_NAME="beryllium"
+    fi
     HOME_URL="https://github.com/zirconium-dev/zirconium"
 
     tee /usr/lib/os-release <<EOF
