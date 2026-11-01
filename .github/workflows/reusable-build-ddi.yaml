@@ -46,6 +46,9 @@ env:
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
 
 jobs:
+  nvidia_gate:
+    uses: ./.github/workflows/nvidia-gate.yaml
+
   generate_matrix:
     runs-on: ubuntu-26.04
     outputs:
@@ -64,12 +67,13 @@ jobs:
 
   build_push:
     name: Build and push image
+    if: ${{ !contains(inputs.profiles, 'nvidia') || needs.nvidia_gate.outputs.enabled == 'true' }}
     permissions:
       contents: read
       packages: write
       id-token: write
     timeout-minutes: 60
-    needs: generate_matrix
+    needs: [generate_matrix, nvidia_gate]
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.generate_matrix.outputs.matrix) }}

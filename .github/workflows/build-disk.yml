@@ -6,8 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
+  nvidia_gate:
+    uses: ./.github/workflows/nvidia-gate.yaml
+
   build_release:
     name: Build and release disk image
+    needs: nvidia_gate
+    if: ${{ matrix.flavor != '-nvidia' || needs.nvidia_gate.outputs.enabled == 'true' }}
     permissions:
       contents: read
       packages: read
@@ -39,16 +44,20 @@ jobs:
         run: |
           sudo podman pull "${TARGET_IMAGE}"
           sudo mkdir -p rpm-gpg output
-          sudo podman run --rm -it -v ./rpm-gpg:/out:Z "${TARGET_IMAGE}" bash -c 'cp /etc/pki/rpm-gpg/* /out'
+          sudo podman run --rm -v ./rpm-gpg:/out:Z "${TARGET_IMAGE}" bash -c 'if [ -d /etc/pki/rpm-gpg ]; then cp -a /etc/pki/rpm-gpg/. /out/; fi'
+          RPM_GPG_MOUNT=()
+          if [[ -n "$(find rpm-gpg -mindepth 1 -print -quit)" ]]; then
+            RPM_GPG_MOUNT=(-v ./rpm-gpg/:/etc/pki/rpm-gpg/:ro)
+          fi
           sudo podman run \
-            --rm -it \
+            --rm \
             --privileged \
             --pull=newer \
             --security-opt label=type:unconfined_t \
             -v "${TARGET_CONFIG}:/config.toml:ro" \
             -v ./output/:/output \
             -v /var/lib/containers/storage:/var/lib/containers/storage \
-            -v ./rpm-gpg/:/etc/pki/rpm-gpg/:ro \
+            "${RPM_GPG_MOUNT[@]}" \
             quay.io/centos-bootc/bootc-image-builder:latest --type iso --rootfs btrfs --use-librepo=True \
             "${TARGET_IMAGE}"
           echo "output-directory=$(realpath ./output)" >> $GITHUB_OUTPUT

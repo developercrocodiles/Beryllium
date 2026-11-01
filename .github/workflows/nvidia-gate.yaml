@@ -1,0 +1,24 @@
+name: Check NVIDIA build flag
+on:
+  workflow_call:
+    outputs:
+      enabled:
+        description: Whether NVIDIA builds are enabled
+        value: ${{ jobs.read-config.outputs.enabled }}
+
+jobs:
+  read-config:
+    runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.config.outputs.enabled }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - id: config
+        shell: bash
+        run: |
+          source .github/nvidia.env
+          if [[ "$NVIDIA" != "true" && "$NVIDIA" != "false" ]]; then
+            echo "NVIDIA must be true or false" >&2
+            exit 1
+          fi
+          echo "enabled=$NVIDIA" >> "$GITHUB_OUTPUT"
