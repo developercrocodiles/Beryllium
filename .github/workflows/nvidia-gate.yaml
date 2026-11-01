@@ -5,12 +5,16 @@ on:
       enabled:
         description: Whether NVIDIA builds are enabled
         value: ${{ jobs.read-config.outputs.enabled }}
+      flavors:
+        description: Enabled disk image flavors
+        value: ${{ jobs.read-config.outputs.flavors }}
 
 jobs:
   read-config:
     runs-on: ubuntu-latest
     outputs:
       enabled: ${{ steps.config.outputs.enabled }}
+      flavors: ${{ steps.config.outputs.flavors }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - id: config
@@ -22,3 +26,8 @@ jobs:
             exit 1
           fi
           echo "enabled=$NVIDIA" >> "$GITHUB_OUTPUT"
+          if [[ "$NVIDIA" == "true" ]]; then
+            echo 'flavors=["","-nvidia"]' >> "$GITHUB_OUTPUT"
+          else
+            echo 'flavors=[""]' >> "$GITHUB_OUTPUT"
+          fi

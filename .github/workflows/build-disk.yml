@@ -12,7 +12,6 @@ jobs:
   build_release:
     name: Build and release disk image
     needs: nvidia_gate
-    if: ${{ matrix.flavor != '-nvidia' || needs.nvidia_gate.outputs.enabled == 'true' }}
     permissions:
       contents: read
       packages: read
@@ -22,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: ["amd64"]
-        flavor: ["", "-nvidia"]
+        flavor: ${{ fromJSON(needs.nvidia_gate.outputs.flavors) }}
     runs-on: ${{ matrix.platform == 'amd64' && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
 
     steps:
