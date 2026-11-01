@@ -40,25 +40,6 @@ toggle-user-motd:
         exit 0
     fi
 
-toggle-fcitx5:
-    #!/usr/bin/env bash
-
-    if systemctl is-enabled --quiet --user fcitx5 ; then
-        if gum confirm "Would you like to disable fcitx5?" ; then
-            systemctl disable --quiet --now --user fcitx5.service
-            systemctl mask --quiet --now --user fcitx5.service
-            echo "Disabled fcitx5"
-            exit 0
-        fi
-    else
-        if gum confirm "Would you like to enable fcitx5?" ; then
-            systemctl unmask --quiet --user fcitx5.service
-            systemctl enable --quiet --now --user fcitx5.service
-            echo "Enabled fcitx5"
-            exit 0
-        fi
-    fi
-
 preinstalled-flatpaks:
     #!/usr/bin/env bash
     if gum confirm "Would you like to (re)install the preinstalled flatpaks?" ; then
