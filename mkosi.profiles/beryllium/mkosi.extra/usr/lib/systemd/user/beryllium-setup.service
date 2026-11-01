@@ -1,11 +1,12 @@
 [Unit]
 Description=Initialize Beryllium desktop configuration
-Before=graphical-session-pre.target
+Before=graphical-session-pre.target dms.service
 
 [Service]
 Type=oneshot
 Environment=XDG_CURRENT_DESKTOP=Hyprland
 ExecStart=/usr/bin/dms setup headless --compositor hyprland --skip-existing
+ExecStart=/usr/libexec/beryllium/seed-dms-settings
 ExecStart=/usr/bin/dfiles portal install --no-restart
 
 [Install]

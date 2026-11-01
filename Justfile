@@ -1,5 +1,5 @@
-image := env("IMAGE_FULL", "localhost/zirconium:latest")
-image_name := "zirconium"
+image := env("IMAGE_FULL", "localhost/beryllium:latest")
+image_name := "beryllium"
 filesystem := env("BUILD_FILESYSTEM", "btrfs")
 
 iterate-sysupdate $IMAGE_NAME=image_name:
@@ -23,10 +23,10 @@ iterate-bootc:
 build: build-ostree
 
 build-ostree:
-    mkosi -B --debug-shell --profile=base,base-desktop,bootc-ostree,brew,zirconium-bootc-ostree
+    mkosi -B --debug-shell --profile=base,base-desktop,bootc-ostree,brew,beryllium-bootc-ostree,beryllium
 
 build-sysupdate:
-    mkosi -B --debug-shell --profile=base,base-desktop,sysupdate,brew,base
+    mkosi -B --debug-shell --profile=base,base-desktop,sysupdate,brew,base,beryllium
 
 build-iso:
     mkosi -B --debug --profile=iso

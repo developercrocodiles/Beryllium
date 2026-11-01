@@ -1,5 +1,3 @@
-enable chezmoi-init.service
-enable chezmoi-update.timer
 enable danksearch.service
 enable dms.service
 enable fcitx5.service
@@ -9,5 +7,4 @@ enable gcr-ssh-agent.service
 enable gcr-ssh-agent.socket
 enable gnome-keyring-daemon.service
 enable gnome-keyring-daemon.socket
-enable iio-niri.service
 enable udiskie.service

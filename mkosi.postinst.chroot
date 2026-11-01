@@ -3,9 +3,7 @@ set -xeuo pipefail
 
 install -Dpm0644 -t /usr/share/flatpak/remotes.d/ "$SRCDIR/cache/flathub.flatpakrepo"
 
-niri --version | grep -i -E "niri [[:digit:]]*\.[[:digit:]]*"
-
-install -d /usr/share/zirconium/
+install -d /usr/share/beryllium/
 sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /usr/lib/pam.d/greetd
 install -d /usr/share/bash-completion/completions /usr/share/zsh/site-functions /usr/share/fish/vendor_completions.d/
 just --completions bash | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/bash-completion/completions/zjust
@@ -18,7 +16,7 @@ fc-cache --force --really-force --system-only --verbose # recreate font-cache to
 grep -F -e "Comment=Central repository of Flatpak applications" /usr/share/flatpak/remotes.d/flathub.flatpakrepo
 stat /usr/share/flatpak/remotes.d/flathub.flatpakrepo
 stat /usr/bin/luks*tpm*
-stat /usr/share/zirconium/just/00-start.just
+stat /usr/share/beryllium/just/00-start.just
 # Not yet, needs a lot of fixes for sysupdate version
 # stat /usr/bin/taidan
 # stat /usr/lib/systemd/system/taidan*.service
@@ -28,10 +26,7 @@ ln -s fedora-release /usr/lib/system-release
 
 (
     . /usr/lib/os-release
-    IMAGE_NAME="zirconium"
-    if [[ -e /usr/share/beryllium-release ]] ; then
-        IMAGE_NAME="beryllium"
-    fi
+    IMAGE_NAME="beryllium"
     HOME_URL="https://github.com/zirconium-dev/zirconium"
 
     tee /usr/lib/os-release <<EOF

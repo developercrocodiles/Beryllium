@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if test ! -e "${XDG_CONFIG_HOME:-$HOME/.config}/zirconium/no-show-user-motd" ; then
+if test ! -e "${XDG_CONFIG_HOME:-$HOME/.config}/beryllium/no-show-user-motd" ; then
   reset=$'\e[0m'
   # bold=$'\e[1m'
   # link=$'\e[38;2;23;118;122m'
@@ -8,14 +8,12 @@ if test ! -e "${XDG_CONFIG_HOME:-$HOME/.config}/zirconium/no-show-user-motd" ; t
   # PLEASE make sure this is properly organized, i dont want to include glow on the image :steamsad:
   cat <<EOF
 
-  ${header} Welcome to Zirconium! ${reset}
+  ${header} Welcome to Beryllium! ${reset}
 
      Command                        │ Description
   ───────────────────────────────────┼────────────────────────────────────
     ${slight_red} zjust toggle-user-motd ${reset}         │ Toggle this banner on/off
-    ${slight_red} zjust update-dotfiles ${reset}          │ Update your unmodified dotfiles
     ${slight_red} zjust update-greeter ${reset}           │ Update your greeter with modifications from your current user
-    ${slight_red} zjust reset-niri ${reset}               │ Reset niri to the default configuration
     ${slight_red} zjust update ${reset}                   │ Manually update the system
 
 EOF

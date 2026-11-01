@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+settings="${XDG_CONFIG_HOME:-$HOME/.config}/DankMaterialShell/settings.json"
+if [[ ! -e "${settings}" ]] ; then
+    mkdir -p "$(dirname "${settings}")"
+    printf '{"launcherLogoMode":"os"}\n' > "${settings}"
+fi

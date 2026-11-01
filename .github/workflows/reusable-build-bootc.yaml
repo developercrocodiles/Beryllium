@@ -42,10 +42,10 @@ on:
 
 env:
   DEFAULT_TAG: "${{ inputs.default-tag }}"
-  IMAGE_DESC: "${{ inputs.image-desc || 'Opinionated niri + bootc image' }}"
-  IMAGE_KEYWORDS: "${{ contains(inputs.profiles, 'beryllium') && 'bootc,hyprland' || 'bootc,niri' }}"
+  IMAGE_DESC: "${{ inputs.image-desc || 'Opinionated Hyprland + bootc image' }}"
+  IMAGE_KEYWORDS: "bootc,hyprland"
   IMAGE_LICENSE: AGPL-2.0
-  IMAGE_LOGO_URL: "https://avatars.githubusercontent.com/u/237492973?s=400&v=4"
+  IMAGE_LOGO_URL: "https://raw.githubusercontent.com/zirconium-dev/zirconium/main/mkosi.profiles/beryllium/mkosi.extra/usr/share/pixmaps/beryllium.svg"
   IMAGE_NAME: "${{ inputs.image-name }}"
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
 
@@ -113,7 +113,7 @@ jobs:
           if [ "$CI_MKOSI_RELEASE" != "" ] ; then
             RELEASE_ARGUMENTS+=("--release=$CI_MKOSI_RELEASE")
           fi
-          sudo mkosi -B -ff --debug --profile=base,base-desktop,bootc-ostree,brew,zirconium-bootc-ostree,${CI_MKOSI_PROFILES} ${PROFILE_ARGUMENTS} ${RELEASE_ARGUMENTS} --environment=GITHUB_TOKEN=${GITHUB_TOKEN}
+          sudo mkosi -B -ff --debug --profile=base,base-desktop,bootc-ostree,brew,beryllium-bootc-ostree,${CI_MKOSI_PROFILES} ${PROFILE_ARGUMENTS} ${RELEASE_ARGUMENTS} --environment=GITHUB_TOKEN=${GITHUB_TOKEN}
 
       - name: Load image
         id: load

@@ -2,6 +2,6 @@
 
 set -xeuo pipefail
 
-stat /usr/share/pki/containers/zirconium.pub
+stat /usr/share/pki/containers/beryllium.pub
 stat /usr/share/pki/containers/hawaii.pub
 grep -F -e "ghcr.io/zirconium-dev" /usr/share/containers/policy.json

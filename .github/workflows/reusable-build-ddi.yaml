@@ -38,10 +38,10 @@ on:
 
 env:
   DEFAULT_TAG: "${{ inputs.default-tag }}"
-  IMAGE_DESC: "${{ inputs.image-desc || 'Opinionated niri + bootc image' }}"
-  IMAGE_KEYWORDS: "${{ contains(inputs.profiles, 'beryllium') && 'sysupdate,hyprland' || 'sysupdate,niri' }}"
+  IMAGE_DESC: "${{ inputs.image-desc || 'Opinionated Hyprland + sysupdate image' }}"
+  IMAGE_KEYWORDS: "sysupdate,hyprland"
   IMAGE_LICENSE: AGPL-2.0
-  IMAGE_LOGO_URL: "https://avatars.githubusercontent.com/u/237492973?s=400&v=4"
+  IMAGE_LOGO_URL: "https://raw.githubusercontent.com/zirconium-dev/zirconium/main/mkosi.profiles/beryllium/mkosi.extra/usr/share/pixmaps/beryllium.svg"
   IMAGE_NAME: "${{ inputs.image-name }}"
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
 

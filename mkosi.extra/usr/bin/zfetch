@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
 
-if [ "$(( RANDOM % 67 ))" -eq 0 ]; then
-  exec hyfetch --ascii-file=/usr/share/zirconium/legally-distinct.txt "${@}"
-else
-  exec hyfetch --ascii-file=/usr/share/zirconium/zirconium.txt "${@}"
-fi
+exec hyfetch --ascii-file=/usr/share/beryllium/beryllium.txt "${@}"

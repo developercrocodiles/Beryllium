@@ -1,4 +1,4 @@
-name: Build Zirconium Jackrabbit
+name: Build Beryllium Jackrabbit
 
 permissions:
   contents: read
@@ -24,7 +24,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-bootc.yaml
     secrets: inherit
     with:
-      image-name: zirconium-jackrabbit
+      image-name: beryllium-jackrabbit
       platforms: amd64
-      profiles: jackrabbit
+      profiles: beryllium,jackrabbit
       publish: ${{ github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}

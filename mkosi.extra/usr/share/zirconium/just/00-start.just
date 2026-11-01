@@ -1,5 +1,3 @@
-zdots_path := "/usr/share/zirconium/zdots"
-
 default:
     @zjust --choose
 
@@ -12,26 +10,10 @@ update:
         pompona-update
     fi
 
-update-dotfiles:
-    #!/usr/bin/env bash
-    echo "Updating non-overwritten dotfiles to their latest in-image state"
-    yes s | chezmoi apply --no-tty --keep-going -S "{{ zdots_path }}" --verbose --config "$HOME/.config/zirconium/chezmoi/chezmoi.toml" &>/dev/null
-    echo "Updated dotfiles. This should not have touched anything on your system that you've configured yourself."
-
-_zdots-reset $FILE="":
-    #!/usr/bin/env bash
-    if [ "${FILE}" == "" ] ; then
-        echo "This recipe is for resetting a specific file from the config to default again, do not use if you don't know what this does!"
-        exit 0
-    fi
-
-    chezmoi apply --force -S "{{ zdots_path }}" --verbose --config "$HOME/.config/zirconium/chezmoi/chezmoi.toml" "${FILE}"
-
 reset-all-configs:
     #!/usr/bin/env bash
     if gum confirm --default=no "Are you sure you want to reset all your configuration?" ; then
         pkill -USR1 -x dms >/dev/null 2>&1 || :
-        chezmoi apply --force -S "{{ zdots_path }}" --verbose --config "$HOME/.config/zirconium/chezmoi/chezmoi.toml"
         rm -rf "$HOME/.config/dms" "$HOME/.cache/dms" "$HOME/.local/state/dms"
         mv "$HOME/.config/DankMaterialShell" "$HOME/.config/dms"
         mv "$HOME/.cache/DankMaterialShell" "$HOME/.cache/dms"
@@ -58,48 +40,6 @@ toggle-user-motd:
         exit 0
     fi
 
-toggle-autorotation:
-    #!/usr/bin/env bash
-
-    if systemctl is-enabled --quiet --user iio-niri ; then
-        if gum confirm "Would you like to disable autorotation?" ; then
-            systemctl disable --quiet --now --user iio-niri.service
-            systemctl mask --quiet --now --user iio-niri.service
-            echo "Disabled autorotation"
-            exit 0
-        fi
-    else
-        if gum confirm "Would you like to enable autorotation?" ; then
-            systemctl unmask --quiet --user iio-niri.service
-            systemctl enable --quiet --now --user iio-niri.service
-            echo "Enabled autorotation"
-            exit 0
-        fi
-    fi
-
-toggle-automatic-dotfiles:
-    #!/usr/bin/env bash
-
-    if systemctl is-enabled --quiet --user chezmoi-update.timer ; then
-        if gum confirm --default=no "Would you like to disable automatic dotfile updates?" ; then
-            systemctl disable --quiet --now --user chezmoi-update.timer
-            systemctl mask --quiet --now --user chezmoi-update.timer
-            systemctl disable --quiet --now --user chezmoi-init.service
-            systemctl mask --quiet --user chezmoi-init.service
-            echo "Disabled dotfile updates"
-            exit 0
-        fi
-    else
-        if gum confirm "Would you like to enable dotfiles updates?" ; then
-            systemctl unmask --quiet --user chezmoi-init.service
-            systemctl enable --quiet --user chezmoi-init.service
-            systemctl unmask --quiet --user chezmoi-update.timer
-            systemctl enable --quiet --now --user chezmoi-update.timer
-            echo "Enabled dotfile updates"
-            exit 0
-        fi
-    fi
-
 toggle-fcitx5:
     #!/usr/bin/env bash
 
@@ -123,12 +63,6 @@ preinstalled-flatpaks:
     #!/usr/bin/env bash
     if gum confirm "Would you like to (re)install the preinstalled flatpaks?" ; then
         flatpak preinstall --reinstall
-    fi
-
-reset-niri:
-    #!/usr/bin/env bash
-    if gum confirm "Are you sure you want to reset your niri configuration?" ; then
-        zjust _zdots-reset "${HOME}/.config/niri"
     fi
 
 update-greeter:
