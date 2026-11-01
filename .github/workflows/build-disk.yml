@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: "0 1 * * TUE"
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Build Beryllium
+    branches:
+      - main
+    types:
+      - completed
 
 jobs:
   nvidia_gate:
@@ -12,6 +19,7 @@ jobs:
   build_release:
     name: Build and release disk image
     needs: nvidia_gate
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read
       packages: read
