@@ -8,12 +8,9 @@ Beryllium is an opinionated Fedora Bootc image with Hyprland and DankMaterialShe
 
 Download an ISO for your hardware:
 
-- x86_64
+- amd64
   - [AMD/Intel](https://isos.zirconium.gay/zirconium-isos/beryllium-amd64.iso) ([checksum](https://isos.zirconium.gay/zirconium-isos/beryllium-amd64.iso-CHECKSUM))
   - [NVIDIA](https://isos.zirconium.gay/zirconium-isos/beryllium-nvidia-amd64.iso) ([checksum](https://isos.zirconium.gay/zirconium-isos/beryllium-nvidia-amd64.iso-CHECKSUM))
-- ARM64
-  - [AMD/Intel](https://isos.zirconium.gay/zirconium-isos/beryllium-arm64.iso) ([checksum](https://isos.zirconium.gay/zirconium-isos/beryllium-arm64.iso-CHECKSUM))
-  - [NVIDIA](https://isos.zirconium.gay/zirconium-isos/beryllium-nvidia-arm64.iso) ([checksum](https://isos.zirconium.gay/zirconium-isos/beryllium-nvidia-arm64.iso-CHECKSUM))
 
 ### Rebase
 
