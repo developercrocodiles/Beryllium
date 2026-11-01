@@ -8,22 +8,20 @@ Beryllium is an opinionated Fedora Bootc image with Hyprland and DankMaterialShe
 
 Download an ISO for your hardware:
 
-- amd64
-  - [AMD/Intel](https://isos.zirconium.gay/zirconium-isos/beryllium-amd64.iso) ([checksum](https://isos.zirconium.gay/zirconium-isos/beryllium-amd64.iso-CHECKSUM))
-  - [NVIDIA](https://isos.zirconium.gay/zirconium-isos/beryllium-nvidia-amd64.iso) ([checksum](https://isos.zirconium.gay/zirconium-isos/beryllium-nvidia-amd64.iso-CHECKSUM))
+ISO files are comeing soon.
 
 ### Rebase
 
 From an existing Fedora Atomic or Bootc installation, run:
 
 ```bash
-sudo bootc switch ghcr.io/zirconium-dev/beryllium:latest
+sudo bootc switch ghcr.io/developercrocodiles/beryllium:latest
 ```
 
 For NVIDIA systems:
 
 ```bash
-sudo bootc switch ghcr.io/zirconium-dev/beryllium-nvidia:latest
+sudo bootc switch ghcr.io/developercrocodiles/beryllium-nvidia:latest
 ```
 
 The gaming-focused Jackrabbit images are available as `beryllium-jackrabbit` and `beryllium-jackrabbit-nvidia`. Jackrabbit currently has no install ISO; install Beryllium first, then rebase to the desired image.
